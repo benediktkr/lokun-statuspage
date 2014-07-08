@@ -1,0 +1,4 @@
+{% extends "lokun_statuspage/views/templates/base.html" %}
+{% block content %}
+ <p>this is the story of lokun-statuspage... work in progress</p>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "lokun_statuspage/views/templates/base.html" %}
+{% block content %}
+
+
+
+<div class="jumbotron">
+  <h1>Lokun statuspage</h1>
+  <p class="lead">&nbsp;</p>
+  {% ifequal response.status "green" %}
+  <div class="alert alert-success">
+    <strong>OK</strong>. All systems are operating normally.
+  </div>
+  {% endifequal %}
+
+  {% ifequal response.status "yellow" %}
+  <div class="alert alert-warning">
+    <strong>We are experiencing some problems</strong>. Most systems are operating normally, users should not be invonvenied. 
+  </div>
+  {% endifequal %}
+
+  {% ifequal response.status "red" %}
+  <div class="alert alert-danger">
+    <strong>We are experiencing problems</strong>. We are working hard to fix them. 
+  </div>
+  {% endifequal %}
+</div>
+
+<h2>Nodes</h2>
+
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>CPU</th>
+    <th>Usercount</th>
+    <th>Heartbeat</th>
+    <th>Throughput</th>
+    <th>Uptime</th>
+    <th>Score</th>
+    <th>Selfcheck</th>
+  </tr>
+</thead>
+<tbody>
+  {% for node in nodes %}
+    {% if not node.alive %}
+      <tr class="danger">       
+    {% else %}
+      {% if node.score > 99 %}
+        <tr class="warning">
+      {% else %}
+        {% ifequal "0" node.score %}
+          <tr class="warning">
+        {% else %}
+          <tr>
+        {% endifequal %}
+      {% endif %}
+    {% endif %}
+        <td>{{ node.name }}</td>
+        <td>{{ node.cpu|double-format:0 }} % </td>
+        <td>{{ node.usercount }}</td>
+        <td>{{ node.heartbeat_age|double-format:1 }} mins</td>
+        <td>{{ node.throughput }} </td>
+        <td>{{ node.uptime }}</td>
+        <td>{{ node.score }} </td>
+        <td>{{ node.selfcheck }} </td>
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+
+<p>Servercount: {{ nodes|count }}.</p>
+<p>Total usercount: {{ usersum }}. </p>
+
+
+<div class="row-fluid">
+  <div class="span8">
+    {{content|safe}}
+  </div>
+</div>
+{% endblock %}
