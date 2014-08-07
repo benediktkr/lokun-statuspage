@@ -5,7 +5,10 @@
             [clj-http.client :as client]
             [clojure.data.json :as json]))
 
-(def api {:url "https://api.lokun.is" :secret "89dfddf882f8a0e7a65bbe7fae9453d74f4f6050dc5473ab9ef1987be987c79a"})
+(def api-key (slurp "key.txt"))
+
+(def api {:url "https://api.lokun.is"
+          :secret api-key})
 
 (defn api-action [method path & [opts]]
   (let [response (client/request
@@ -32,14 +35,11 @@
 
 (defn home-page []
   (let [basic-status (api-call :get "/lokun/status")
-        nodelist (api-call :post "/nodes" {:form-params api})]
-    (do
-      (println nodelist)
+        nodelist (:data (api-call :post "/nodes" {:form-params api}))]
     (layout/render
-     "home.html" {:content (util/md->html "/md/news.md")
-                  :nodes (sort-by :score (map human-readable nodelist))
+     "home.html" {:nodes (sort-by :name (map human-readable nodelist))
                   :response basic-status
-                  :usersum (reduce + (map :usercount nodelist))}))))
+                  :usersum (reduce + (map :usercount nodelist))})))
 
 (defn about-page []
   (layout/render "about.html"))
