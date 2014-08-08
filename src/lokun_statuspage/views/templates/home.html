@@ -25,6 +25,11 @@
   {% endifequal %}
 </div>
 
+<h2>Stats</h2>
+<p>Servercount: {{ nodes|count }}.</p>
+<p>Total usercount: {{ usersum }}. </p>
+
+
 <h2>Nodes</h2>
 
 <table class="table table-hover">
@@ -68,6 +73,4 @@
 </tbody>
 </table>
 
-<p>Servercount: {{ nodes|count }}.</p>
-<p>Total usercount: {{ usersum }}. </p>
 {% endblock %}
