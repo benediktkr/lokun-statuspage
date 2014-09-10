@@ -30,7 +30,7 @@
         selfcheck (:selfcheck node)]
     (assoc node
       :heartbeat_age (/ heartbeat-age 60)
-      :selfcheck (if (= selfcheck 1) "Good" "Error")
+      :selfcheck (if selfcheck "Good" "Error")
       :throughput (if (> 100 kbytes) (str kbytes " kbytes") (format "%.2f mbytes" (float (/ kbytes 1000)))))))
 
 (defn home-page []
