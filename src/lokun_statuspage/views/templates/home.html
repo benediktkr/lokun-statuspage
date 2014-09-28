@@ -43,7 +43,6 @@
     <th>Uptime</th>
     <th>Score</th>
     <th>Selfcheck</th>
-    <th>Enabled</th>
   </tr>
 </thead>
 <tbody>
@@ -69,7 +68,6 @@
         <td>{{ node.uptime }}</td>
         <td>{{ node.score }} </td>
         <td>{{ node.selfcheck }} </td>
-        <td>{{ node.enabled }}</td>
     </tr>
   {% endfor %}
 </tbody>
@@ -112,7 +110,7 @@
         <td>{{ disabled-node.uptime }}</td>
         <td>{{ disabled-node.score }} </td>
         <td>{{ disabled-node.selfcheck }} </td>
-    </tr>
+          </tr>
   {% endfor %}
 </tbody>
 </table>

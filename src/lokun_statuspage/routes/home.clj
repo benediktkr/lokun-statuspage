@@ -40,8 +40,9 @@
         nodelist (:data (api-call :post "/nodes" {:form-params api}))
         all-nodes (map human-readable nodelist)]
     (layout/render
-     "home.html" {:nodes (filter :enabled (sort-by :name all-nodes))
-                  :disabled (filter #(not (:enabled %)) all-nodes)
+     "home.html" {:nodes (sort-by :name (filter :enabled  all-nodes))
+                  :disabled (sort-by :alive
+                                     (filter #(not (:enabled %)) all-nodes))
                   :response basic-status
                   :usersum (reduce + (map :usercount nodelist))})))
 
