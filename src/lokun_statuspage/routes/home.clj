@@ -31,13 +31,17 @@
     (assoc node
       :heartbeat_age (/ heartbeat-age 60)
       :selfcheck (if selfcheck "Good" "Error")
-      :throughput (if (> 100 kbytes) (str kbytes " kbytes") (format "%.2f mbytes" (float (/ kbytes 1000)))))))
+      :throughput (if (> 100 kbytes)
+                    (str kbytes " kbytes")
+                    (format "%.2f mbytes" (float (/ kbytes 1000)))))))
 
 (defn home-page []
   (let [basic-status (api-call :get "/lokun/status")
-        nodelist (:data (api-call :post "/nodes" {:form-params api}))]
+        nodelist (:data (api-call :post "/nodes" {:form-params api}))
+        all-nodes (map human-readable nodelist)]
     (layout/render
-     "home.html" {:nodes (sort-by :name (map human-readable nodelist))
+     "home.html" {:nodes (filter :enabled (sort-by :name all-nodes))
+                  :disabled (filter #(not (:enabled %)) all-nodes)
                   :response basic-status
                   :usersum (reduce + (map :usercount nodelist))})))
 
