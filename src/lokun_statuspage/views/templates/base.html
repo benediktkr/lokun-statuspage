@@ -85,8 +85,8 @@
 </tfoot>
 </table>
 
-<h3>Disabled nodes (<a id="disabled_heading"><small>show</small></a>)</h3>
-<table class="table table-hover" style="display:none" id="disabled_table">
+<h3>Disabled nodes (<a id="disabled_heading"><small>show/hide</small></a>)</h3>
+<table class="table table-hover" id="disabled_table">
 <thead>
   <tr>
     <th>Name</th>
@@ -120,11 +120,14 @@
         <td>{{ disabled-node.usercount }}</td>
         <td>{{ disabled-node.heartbeat_age|double-format:1 }} mins</td>
         <td>{{ disabled-node.throughput }} </td>
-        <td>{{ node.total_throughput }} </td>
+        <td>{{ disabled-node.total_throughput }} </td>
         <td>{{ disabled-node.uptime }}</td>
         <td>{{ disabled-node.score }} </td>
         <td>{{ disabled-node.selfcheck }} </td>
-          </tr>
+    </tr>
+
+
+
   {% endfor %}
 </tbody>
 </table>

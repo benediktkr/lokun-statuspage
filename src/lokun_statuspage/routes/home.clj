@@ -52,7 +52,7 @@
       :throughput (format-bandwidth throughput))))
 
 (defn format-nodes [nodes]
-  (map format-node (sort-by :name nodes)))
+  (map format-node (sort-by :score nodes)))
 
 (defn home-page []
   (let [basic-status (api-call :get "/lokun/status")
