@@ -130,8 +130,21 @@
 
   {% endfor %}
 </tbody>
-</table>
+<tfoot>
+    <tr>
+      <td>Count: {{disabled|count}}</td>
+      <td><!-- cpu --></td>
+      <td><!-- users --></td>
+      <td><!-- heartbeat --></td>
+      <td><!-- bandwidth --></td>
+      <td>{{ dis-totalsum }}</td>
+      <td><!-- uptime --></td>
+      <td><!-- score --></td>
+      <td><!-- selfcheck --></td>
+    </tr>
+</tfoot>
 
+</table>
 
             <div class="footer">
               <p>Lokun 2013</p>

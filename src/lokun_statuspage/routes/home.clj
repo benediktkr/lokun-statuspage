@@ -64,6 +64,8 @@
                   :disabled (format-nodes disabled-nodes)
                   :response basic-status
                   :usersum (reduce + (map :usercount enabled-nodes))
+                  :dis-totalsum (format-usage
+                              (reduce + (map :total_throughput disabled-nodes)))
                   :bandwidthsum (format-bandwidth
                                  (reduce + (map :throughput enabled-nodes)))
                   :totalsum (format-usage (reduce + (map :total_throughput enabled-nodes)))})))
